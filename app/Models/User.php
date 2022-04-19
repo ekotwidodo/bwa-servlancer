@@ -69,4 +69,26 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    // one-to-one
+    public function detail_user()
+    {
+        return $this->hasOne(DetailUser::class, 'users_id');  // Bisa menggunakan App\Models\DetailUser
+    }
+
+    // one-to-many
+    public function service()
+    {
+        return $this->hasMany(Service::class, 'users_id');
+    }
+
+    public function order_buyer()
+    {
+        return $this->hasMany(Order::class, 'buyer_id');
+    }
+
+    public function order_freelancer()
+    {
+        return $this->hasMany(Order::class, 'freelancer_id');
+    }
 }

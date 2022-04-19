@@ -31,4 +31,17 @@ class DetailUser extends Model
         'deleted_at',
     ];
 
+    // one-to-one
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
+    // one-to-many
+
+    public function experience_user()
+    {
+        return $this->hasMany(ExperienceUser::class, 'detail_user_id');
+    }
+
 }

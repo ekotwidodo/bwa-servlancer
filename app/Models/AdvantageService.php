@@ -27,4 +27,10 @@ class AdvantageService extends Model
         'created_at',
         'deleted_at',
     ];
+
+    // one-to-many
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id', 'id');
+    }
 }
