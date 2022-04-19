@@ -29,29 +29,29 @@ Route::get('detail/{id}', [LandingController::class, 'detail'])->name('detail.la
 Route::get('booking/{id}', [LandingController::class, 'booking'])->name('booking.landing');
 Route::get('detail_booking/{id}', [LandingController::class, 'detail_booking'])->name('detail.booking.landing');
 
-Route::resource('/', [LandingController::class]);
+Route::resource('/', LandingController::class);
 
-Route::group(['prefix' => 'member', 'as' => 'member.', 'middleware' => ['auth:sanctum', 'verified'], function() {
-
+Route::prefix('member')->name('member.')->middleware(['auth:sanctum', 'verified'])->group(function() {
+    
     // Dashboard
-    Route::resource('dashboard', [MemberController::class]);
+    Route::resource('dashboard', MemberController::class);
 
     // Service
-    Route::resource('service', [ServiceController::class]);
+    Route::resource('service', ServiceController::class);
 
     // Request
-    Route::resource('request', [RequestController::class]);
+    Route::resource('request', RequestController::class);
     Route::get('approve_request/{id}', [RequestController::class, 'approve'])->name('approve.request');
 
     // My Order
-    Route::resource('order', [MyOrderController::class]);
+    Route::resource('order', MyOrderController::class);
     Route::get('accept/order/{id}', [MyOrderController::class, 'accepted'])->name('accept.order');
     Route::get('reject/order/{id}', [MyOrderController::class, 'rejected'])->name('reject.order');
 
     // Profile
-    Route::resource('profile', [ProfileController::class]);
+    Route::resource('profile', ProfileController::class);
     Route::get('delete_photo', [ProfileController::class, 'delete'])->name('delete.photo.profile');
-}]);
+});
 
 // Route::get('/', function () {
 //     return view('welcome');
